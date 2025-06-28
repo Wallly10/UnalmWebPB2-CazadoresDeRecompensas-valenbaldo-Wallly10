@@ -10,5 +10,10 @@ public class CazadorTest {
 	public void test() {
 		fail("Not yet implemented");
 	}
-
+	
+	@Test
+	public void testPrueba() {
+		fail("Not yet implemented");
+	}
+	
 }
