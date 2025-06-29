@@ -4,6 +4,7 @@ public abstract class Cazador {
 
 	protected String nombre;
 	protected int experiencia;
+	
 
 	public Cazador(String nombre, int experienciaInicial) {
 		this.nombre = nombre;
@@ -17,6 +18,9 @@ public abstract class Cazador {
 	public Integer getExperiencia() {
 		return experiencia;
 	}
+	
+	public abstract boolean puedeCapturar(Profugo p); 
 
+	public abstract void intimidar(Profugo p); 
 
 }

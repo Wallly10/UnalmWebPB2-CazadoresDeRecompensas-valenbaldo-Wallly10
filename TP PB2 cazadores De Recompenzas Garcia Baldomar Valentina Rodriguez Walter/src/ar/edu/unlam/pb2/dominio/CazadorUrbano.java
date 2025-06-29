@@ -6,4 +6,6 @@ public class CazadorUrbano extends Cazador {
 		super(nombre, experienciaInicial);
 	}
 	
+	
+	
 }
