@@ -1,5 +1,22 @@
 package ar.edu.unlam.pb2.dominio;
 
-public class Cazador {
+public abstract class Cazador {
+
+	protected String nombre;
+	protected int experiencia;
+
+	public Cazador(String nombre, int experienciaInicial) {
+		this.nombre = nombre;
+		this.experiencia = experienciaInicial;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public Integer getExperiencia() {
+		return experiencia;
+	}
+
 
 }
