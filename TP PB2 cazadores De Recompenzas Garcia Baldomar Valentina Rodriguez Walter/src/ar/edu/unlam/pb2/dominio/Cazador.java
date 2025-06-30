@@ -1,12 +1,13 @@
 package ar.edu.unlam.pb2.dominio;
 
+
 public abstract class Cazador {
 
 	protected String nombre;
-	protected int experiencia;
+	protected Integer experiencia;
 	
 
-	public Cazador(String nombre, int experienciaInicial) {
+	public Cazador(String nombre, Integer experienciaInicial) {
 		this.nombre = nombre;
 		this.experiencia = experienciaInicial;
 	}
@@ -19,8 +20,15 @@ public abstract class Cazador {
 		return experiencia;
 	}
 	
-	public abstract boolean puedeCapturar(Profugo p); 
+	public Boolean puedeCapturar(Profugo profugo) {
+		return this.experiencia > profugo.getNivelInocencia() && condicionEspecifica(profugo);
+	}
+	
+	protected abstract Boolean condicionEspecifica(Profugo profugo);
 
-	public abstract void intimidar(Profugo p); 
+	public abstract void intimidar(Profugo profugo); 
 
+	
+	
+	
 }
