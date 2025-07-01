@@ -49,13 +49,27 @@ public class ProfugoTest {
 
 	@Test
 	public void queNoSeCreeProfugoIValido() {
-		 try {
-		        new Profugo("Invalido", -1, true, -1); 
-		        fail("Se esperaba una excepción por inocencia o habilidad inválida");
-		    } catch (InocenciaInvalidaException e) {
-		        assertEquals("La inocencia debe ser mayor a 0", e.getMessage());
-		    } catch (HabilidadInvalidaException e) {
-		        assertEquals("La habilidad debe estar entre 1 y 100", e.getMessage());
-		    }
+		try {
+			new Profugo("Invalido", -1, true, -1);
+			fail("Se esperaba una excepción por inocencia o habilidad inválida");
+		} catch (InocenciaInvalidaException e) {
+			assertEquals("La inocencia debe ser mayor a 0", e.getMessage());
+		} catch (HabilidadInvalidaException e) {
+			assertEquals("La habilidad debe estar entre 1 y 100", e.getMessage());
+		}
+	}
+
+	@Test
+	public void queLaInocenciaNoSeaNegativa() {
+		try {
+			Profugo profugo = new Profugo("Profugo de prueba", 1, true, 50);
+			profugo.reducirInocenciaPorIntimidacion();
+			assertEquals(Integer.valueOf(0), profugo.getNivelInocencia());
+
+			profugo.reducirInocenciaPorIntimidacion(); 
+			assertEquals(Integer.valueOf(0), profugo.getNivelInocencia()); 
+		} catch (HabilidadInvalidaException | InocenciaInvalidaException e) {
+			fail("No se esperaba ninguna excepción");
+		}
 	}
 }

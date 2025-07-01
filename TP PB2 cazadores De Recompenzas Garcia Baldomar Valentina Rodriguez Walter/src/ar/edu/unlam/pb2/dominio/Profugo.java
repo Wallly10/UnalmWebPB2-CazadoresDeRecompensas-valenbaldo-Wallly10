@@ -50,9 +50,13 @@ public class Profugo {
 	}
 
 
-
 	public void reducirHabilidad(Integer reduccionHabilidad) {
 		this.habilidad=Math.max(0, this.habilidad-reduccionHabilidad) ;
+	}
+
+
+	public void reducirInocenciaPorIntimidacion() {
+		 this.nivelInocencia = Math.max(0, this.nivelInocencia - 2);
 	}
 
 	

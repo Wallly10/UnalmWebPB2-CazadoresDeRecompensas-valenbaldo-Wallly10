@@ -1,8 +1,10 @@
 package ar.edu.unlam.pb2.dominio;
 
+import ar.edu.unlam.pb2.excepciones.ExperienciaNegativaArgumentException;
+
 public class CazadorRural extends Cazador{
 
-	public CazadorRural(String nombre, Integer experienciaInicial) { 
+	public CazadorRural(String nombre, Integer experienciaInicial) throws ExperienciaNegativaArgumentException { 
 		super(nombre, experienciaInicial); 
 		} 
 	
@@ -13,7 +15,7 @@ public class CazadorRural extends Cazador{
     }
 
 	@Override
-	protected Boolean condicionEspecifica(Profugo profugo) {
+	public Boolean condicionEspecifica(Profugo profugo) {
 		 return profugo.esNervioso();
 	}
 
