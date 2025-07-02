@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import ar.edu.unlam.pb2.dominio.CazadorRural;
 import ar.edu.unlam.pb2.dominio.Profugo;
+import ar.edu.unlam.pb2.excepciones.ExperienciaNegativaArgumentException;
 
 public class CazadorRuralTest {
 
@@ -29,5 +30,15 @@ public class CazadorRuralTest {
 	    Profugo profugo = new Profugo("P", 5, false, 30);
 	    rural.intimidar(profugo);
 	    assertTrue(profugo.esNervioso());
+	}
+	
+	@Test
+	public void noSePuedeCrearCazadorRuralConExperienciaNegativa() throws Exception{
+	    try {
+	        new CazadorRural("Rural", -5);
+	        fail("Se esperaba una ExperienciaNegativaArgumentException");
+	    } catch (ExperienciaNegativaArgumentException exceptionRural) {
+	        assertEquals("La experiencia no puede ser negativa", exceptionRural.getMessage());
+	    }
 	}
 }

@@ -3,7 +3,7 @@ package ar.edu.unlam.pb2.dominio;
 import ar.edu.unlam.pb2.excepciones.HabilidadInvalidaException ;
 import ar.edu.unlam.pb2.excepciones.InocenciaInvalidaException;
 
-public class Profugo {
+public class Profugo implements EntrenamientoDeProfugo{
 
 	private String nombre;
 	private Integer nivelInocencia;
@@ -23,15 +23,15 @@ public class Profugo {
 		}
 	}
 	
-	
+	@Override
 	public String getNombre() {
 		return nombre;
 	}
-
+	@Override
 	public Integer getNivelInocencia() {
 		return nivelInocencia;
 	}
-
+	@Override
 	public Boolean esNervioso() {
 		return nervioso;
 	}
@@ -44,7 +44,7 @@ public class Profugo {
 		this.nervioso = false;
 	}
 	
-
+	@Override
 	public Integer getHabilidad() {
 		return habilidad;
 	}
@@ -59,7 +59,7 @@ public class Profugo {
 		 this.nivelInocencia = Math.max(0, this.nivelInocencia - 2);
 	}
 
-	
+
 
 	
 }
