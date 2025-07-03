@@ -15,7 +15,7 @@ import ar.edu.unlam.pb2.excepciones.InocenciaDemasiadoAltaException;
 import ar.edu.unlam.pb2.excepciones.InocenciaInvalidaException;
 import ar.edu.unlam.pb2.excepciones.NoEsNerviosoException;
 
-public class ProfugoEntrenamiento {
+public class ProfugoEntrenamientoTest {
 
 	@Test
 	public void queElEntrenamientoDeArtesMarcialesDupliqueLaHabilidadHasta100()
