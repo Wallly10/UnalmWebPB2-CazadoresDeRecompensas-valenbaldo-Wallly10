@@ -41,8 +41,8 @@ public abstract class Cazador {
 	    Set<Profugo> intimidados = new HashSet<>();
 
 	    for (Profugo profugo : profugosEnZona) {
-	        boolean condicionGeneral = this.experiencia > profugo.getNivelInocencia();
-	        boolean condicionEspecifica = this.condicionEspecifica(profugo);
+	        Boolean condicionGeneral = this.experiencia > profugo.getNivelInocencia();
+	        Boolean condicionEspecifica = this.condicionEspecifica(profugo);
 
 	        if (condicionGeneral && condicionEspecifica) {
 	            capturados.add(profugo);

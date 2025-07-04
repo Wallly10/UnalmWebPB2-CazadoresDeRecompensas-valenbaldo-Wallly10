@@ -18,7 +18,13 @@ public class ZonaTest {
 		Zona zona = new Zona("Nordelta");
 		assertTrue(zona.getProfugos().isEmpty());
 	}
-
+	
+	@Test
+	public void queDevuelvaElNombreDeLaZona() {
+		Zona zona = new Zona("Nordelta");
+		assertEquals("Nordelta", zona.getNombre());;
+	}
+	
 	@Test
 	public void queSePuedaAgregarUnProfugoValido()
 			throws HabilidadInvalidaException, InocenciaInvalidaException, ProfugoYaExisteException {
