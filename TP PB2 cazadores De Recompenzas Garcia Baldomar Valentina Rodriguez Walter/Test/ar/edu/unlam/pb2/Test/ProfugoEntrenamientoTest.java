@@ -15,7 +15,7 @@ import ar.edu.unlam.pb2.excepciones.InocenciaDemasiadoAltaException;
 import ar.edu.unlam.pb2.excepciones.InocenciaInvalidaException;
 import ar.edu.unlam.pb2.excepciones.NoEsNerviosoException;
 
-public class ProfugoEntrenamiento {
+public class ProfugoEntrenamientoTest {
 
 	@Test
 	public void queElEntrenamientoDeArtesMarcialesDupliqueLaHabilidadHasta100()
@@ -127,4 +127,51 @@ public class ProfugoEntrenamiento {
 
 		}
 	}
+	
+	@Test
+	public void queElEntrenamientoDeArtesMarcialesNoModifiqueLaInocenciaNiElNerviosismo()
+	        throws HabilidadInvalidaException, InocenciaInvalidaException, HabilidadMaximaException {
+
+	    Profugo base = new Profugo("Julieta", 35, true, 45);
+	    EntrenamientoDeProfugo entrenado = new EntrenamientoArtesMarciales(base);
+
+	    assertEquals(Integer.valueOf(90), entrenado.getHabilidad()); 
+	    assertEquals(Integer.valueOf(35), entrenado.getNivelInocencia()); 
+	    assertTrue(entrenado.esNervioso()); 
+	}
+	
+	@Test
+	public void queLosGettersFuncionenCorrectamenteConEntrenamientosCombinados()
+	        throws HabilidadInvalidaException, InocenciaInvalidaException,
+	               HabilidadMaximaException, NoEsNerviosoException, InocenciaDemasiadoAltaException {
+
+	    Profugo base = new Profugo("Martina", 30, true, 45);
+
+	    EntrenamientoDeProfugo combinado = new ProteccionLegal(
+	                                            new EntrenamientoElite(
+	                                                new EntrenamientoArtesMarciales(base)));
+
+	    assertEquals("Martina", combinado.getNombre());
+	    assertEquals(Integer.valueOf(90), combinado.getHabilidad()); 
+	    assertEquals(Integer.valueOf(40), combinado.getNivelInocencia()); 
+	    assertFalse(combinado.esNervioso()); 
+	}
+	
+	@Test
+	public void queLosEntrenamientosFuncionenIndependientementeDelOrden()
+	        throws HabilidadInvalidaException, InocenciaInvalidaException,
+	               HabilidadMaximaException, NoEsNerviosoException, InocenciaDemasiadoAltaException {
+
+	    Profugo base = new Profugo("Lucas", 20, true, 40);
+
+	    EntrenamientoDeProfugo combinado = new EntrenamientoArtesMarciales(
+	                                            new ProteccionLegal(
+	                                                new EntrenamientoElite(base)));
+
+	    assertEquals("Lucas", combinado.getNombre());
+	    assertEquals(Integer.valueOf(80), combinado.getHabilidad());
+	    assertEquals(Integer.valueOf(40), combinado.getNivelInocencia());
+	    assertFalse(combinado.esNervioso());
+	}
+	
 }

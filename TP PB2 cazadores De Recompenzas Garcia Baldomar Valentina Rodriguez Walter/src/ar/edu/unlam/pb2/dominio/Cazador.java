@@ -41,20 +41,22 @@ public abstract class Cazador {
 	    Set<Profugo> intimidados = new HashSet<>();
 
 	    for (Profugo profugo : profugosEnZona) {
-	        if (puedeCapturar(profugo)) {
+	        boolean condicionGeneral = this.experiencia > profugo.getNivelInocencia();
+	        boolean condicionEspecifica = this.condicionEspecifica(profugo);
+
+	        if (condicionGeneral && condicionEspecifica) {
 	            capturados.add(profugo);
 	        } else {
 	            profugo.reducirInocenciaPorIntimidacion();
-	            intimidar(profugo);
+	            this.intimidar(profugo);
 	            intimidados.add(profugo);
 	        }
 	    }
 
 	    eliminarCapturadosDeLaZona(zona, capturados);
-	    
+
 	    Integer minimoHabilidad = calcularHabilidadMinima(intimidados);
 	    this.experiencia += minimoHabilidad + (2 * capturados.size());
-
 	}
 	
 	private void eliminarCapturadosDeLaZona(Zona zona, Set<Profugo> capturados) {
@@ -77,16 +79,16 @@ public abstract class Cazador {
 	}
 
 	@Override
-	public int hashCode() {
-	    return nombre.hashCode();
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 	    if (this == obj) return true;
 	    if (obj == null || getClass() != obj.getClass()) return false;
 	    Cazador other = (Cazador) obj;
-	    return nombre.equals(other.nombre);
+	    return this.getNombre().equals(other.getNombre());
+	}
+
+	@Override
+	public int hashCode() {
+	    return getNombre().hashCode();
 	}
 	
 }
