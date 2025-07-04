@@ -1,5 +1,10 @@
 # Agencia de Seguridad - Sistema de Gestión de Cazadores y Prófugos
- 
+
+## Integrantes : 
+
+- Valentina Garcia Baldomar 
+- Walter Pablo Jose Rodriguez 
+
 ## Descripción del Proyecto
  
 El Jefe de una Agencia de Seguridad nos encargó desarrollar un sistema para organizar las operaciones de sus cazadores de recompensas, que actualmente considera un "caos total".  
@@ -50,3 +55,26 @@ El sistema provee:  
 | Cazador Urbano   | Prófugo no debe ser nervioso                     |
  
 ---
+
+## Tecnologías y Herramientas
+
+- Lenguaje: **Java**
+- IDE: **Eclipse**
+- Framework de pruebas: **JUnit**  
+- Control de versiones: **Git y GitHub**  
+- Comunicación y reuniones: **Microsoft Teams**
+
+---
+
+## Trabajo en Equipo
+
+Este proyecto fue desarrollado con énfasis en el trabajo colaborativo, fomentando la comunicación continua y el control de versiones efectivo.  
+
+- **GitHub**:  
+  - Uso de repositorios compartidos con rama principal con las ramas propias y pull requests para revisiones de código.
+  - Tratamos de implementar buenas practicas a la hora de realizar los commits, mediante el uso de comentarios, para poder expresar lo que se realizo en cada uno . Con el objetivo de que el compañero este al tanto de los cambios y poder llevar un registro de los avances en el proyecto.
+
+- **Microsoft Teams**:  
+  - Reuniones diarias de seguimiento a partir del viernes 27 de junio para coordinar tareas, resolver dudas y mantener sincronizado el progreso.
+ 
+Lo que más nos llevamos de esta materia, gracias a este trabajo práctico final, es que pudimos complementarnos el uno al otro, por ejemplo al usar colecciones, excepciones y también la herramienta GitHub. Pudimos resolver un trabajo muy interesante y le damos las gracias a ustedes por la oportunidad de poder haberlo llevado a cabo.
