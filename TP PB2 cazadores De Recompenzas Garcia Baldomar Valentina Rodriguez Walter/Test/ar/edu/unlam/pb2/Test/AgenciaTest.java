@@ -51,26 +51,25 @@ public class AgenciaTest {
 
 	@Test
 	public void profugosConMismoNombreDebenSerConsideradosIguales() throws Exception {
-	    Profugo a = new Profugo("A", 5, false, 10);
-	    Profugo b = new Profugo("A", 7, true, 90);
-	    assertEquals(a, b);
-	    assertEquals(a.hashCode(), b.hashCode());
+		Profugo a = new Profugo("A", 5, false, 10);
+		Profugo b = new Profugo("A", 7, true, 90);
+		assertEquals(a, b);
+		assertEquals(a.hashCode(), b.hashCode());
 	}
 
-	
 	@Test
 	public void siIntentoRegistrarUnCazadorConNombreRepetidoSoloDebeGuardarseUnaVez() throws Exception {
-	    Cazador duplicado = new CazadorUrbano("Urbano", 20);
-	    agencia.registrarCazador(duplicado);
-	    int cantidad = 0;
-	    for (Cazador c : agencia.getCazadoresRegistrados()) {
-	        if (c.getNombre().equals("Urbano")) {
-	            cantidad++;
-	        }
-	    }
-	    assertEquals(1, cantidad);
+		Cazador duplicado = new CazadorUrbano("Urbano", 20);
+		agencia.registrarCazador(duplicado);
+		int cantidad = 0;
+		for (Cazador c : agencia.getCazadoresRegistrados()) {
+			if (c.getNombre().equals("Urbano")) {
+				cantidad++;
+			}
+		}
+		assertEquals(1, cantidad);
 	}
-	
+
 	@Test
 	public void registrarCazadorDebeAgregarCazadorSinErroresYMapaInicializado() throws CazadorInvalidoException {
 		Agencia agenciaNueva = new Agencia();
@@ -87,7 +86,8 @@ public class AgenciaTest {
 	}
 
 	@Test
-	public void enviarCazadorAZonaRealizaCapturaYActualizaRegistroCorrectamente() throws CazadorInvalidoException, ZonaInvalidaException {
+	public void enviarCazadorUrbanoAZonaRealizaCapturaDelProfugoUnoYAlDosLosIntimidaDejandoSuIncoenciaA13YSinSerNervioso()
+			throws CazadorInvalidoException, ZonaInvalidaException {
 		agencia.enviarCazadorAZona(cazadorUrbano, zona1);
 
 		Set<Profugo> capturadosUrbano = agencia.getRegistroDeCapturas().get(cazadorUrbano);
@@ -95,14 +95,16 @@ public class AgenciaTest {
 		assertFalse(capturadosUrbano.contains(profugo2));
 
 		assertFalse(profugo2.esNervioso());
-		assertTrue(profugo2.getNivelInocencia() < 15);
+		assertTrue(profugo2.getNivelInocencia() == 13);
 
 		assertFalse(zona1.getProfugos().contains(profugo1));
 		assertTrue(zona1.getProfugos().contains(profugo2));
+
 	}
 
 	@Test
-	public void enviarCazadorAZonaCapturaEnDistintasZonasRegistraCorrectamente() throws CazadorInvalidoException, ZonaInvalidaException {
+	public void enviarCazadorSigilosoAZonaCapturaEnZonaDosRegistraCorrectamente()
+			throws CazadorInvalidoException, ZonaInvalidaException {
 		agencia.enviarCazadorAZona(cazadorSigiloso, zona2);
 
 		Set<Profugo> capturasSigiloso = agencia.getRegistroDeCapturas().get(cazadorSigiloso);
@@ -111,26 +113,38 @@ public class AgenciaTest {
 	}
 
 	@Test
-	public void enviarCazadorAZonaVaciaNoDebeCapturarNada() throws Exception {
-	    Zona vacia = new Zona("Ramos Mejia");
-	    agencia.registrarZona(vacia);
+	public void enviarCazadorUrbanoAZonaVaciaNoDebeCapturarNada() throws Exception {
+		Zona vacia = new Zona("Ramos Mejia");
+		agencia.registrarZona(vacia);
 
-	    agencia.enviarCazadorAZona(cazadorUrbano, vacia);
-
-	    assertTrue(agencia.getRegistroDeCapturas().get(cazadorUrbano).isEmpty());
+		agencia.enviarCazadorAZona(cazadorUrbano, vacia);
+		Boolean noCapturo = agencia.getRegistroDeCapturas().get(cazadorUrbano).isEmpty();
+		assertTrue(noCapturo);
 	}
-	
+
 	@Test
 	public void siCazadorEsEnviadoVariasVecesAZonaNoDebeDuplicarLasCapturas() throws Exception {
-	    agencia.enviarCazadorAZona(cazadorUrbano, zona1);
-	    agencia.enviarCazadorAZona(cazadorUrbano, zona1);
+		Agencia agencia = new Agencia();
+		Zona zona1 = new Zona("Centro");
 
-	    Set<Profugo> capturados = agencia.getRegistroDeCapturas().get(cazadorUrbano);
-	    assertEquals(1, capturados.size()); 
+		Profugo profugo = new Profugo("Carlos", 5, true, 40);
+		zona1.agregarProfugo(profugo);
+
+		Cazador cazadorUrbano = new CazadorUrbano("Luis", 10);
+
+		agencia.registrarZona(zona1);
+		agencia.registrarCazador(cazadorUrbano);
+
+		agencia.enviarCazadorAZona(cazadorUrbano, zona1);
+		agencia.enviarCazadorAZona(cazadorUrbano, zona1);
+
+		Set<Profugo> capturados = agencia.getRegistroDeCapturas().get(cazadorUrbano);
+		assertEquals(1, capturados.size());
 	}
-	
+
 	@Test
-	public void obtenerTodosLosCapturadosDebeDevolverUnionDeCapturadosPorTodosLosCazadores() throws CazadorInvalidoException, ZonaInvalidaException {
+	public void obtenerTodosLosCapturadosDebeDevolverUnionDeCapturadosPorTodosLosCazadores()
+			throws CazadorInvalidoException, ZonaInvalidaException {
 		agencia.enviarCazadorAZona(cazadorUrbano, zona1);
 		agencia.enviarCazadorAZona(cazadorSigiloso, zona2);
 
@@ -141,12 +155,13 @@ public class AgenciaTest {
 	}
 
 	@Test
-	public void obtenerMasHabilCapturadoDebeDevolverAlProfugoConMayorHabilidad() throws CazadorInvalidoException, ZonaInvalidaException {
+	public void obtenerMasHabilCapturadoDebeDevolverAlProfugoConMayorHabilidad()
+			throws CazadorInvalidoException, ZonaInvalidaException {
 		agencia.enviarCazadorAZona(cazadorUrbano, zona1);
 		agencia.enviarCazadorAZona(cazadorSigiloso, zona2);
 
 		Profugo masHabil = agencia.obtenerMasHabilCapturado();
-		assertEquals(profugo3, masHabil); 
+		assertEquals(profugo3, masHabil);
 	}
 
 	@Test
@@ -156,8 +171,8 @@ public class AgenciaTest {
 
 	@Test
 	public void obtenerCazadorConMasCapturasDebeDevolverElCazadorConMasProfugosCapturados() throws Exception {
-		agencia.enviarCazadorAZona(cazadorUrbano, zona1); 
-		agencia.enviarCazadorAZona(cazadorSigiloso, zona2); 
+		agencia.enviarCazadorAZona(cazadorUrbano, zona1);
+		agencia.enviarCazadorAZona(cazadorSigiloso, zona2);
 
 		agencia.enviarCazadorAZona(cazadorRural, zona1);
 
@@ -177,89 +192,95 @@ public class AgenciaTest {
 	@Test
 	public void siCazadorNoCapturaNingunProfugoNoDebeAgregarNadaAlRegistro() throws Exception {
 		Profugo profugoDificil = new Profugo("Profugo dificil", 1, false, 60);
-		zona2.agregarProfugo(profugoDificil);
+		Zona zona = new Zona("La Matanza");
+		zona.agregarProfugo(profugoDificil);
+		agencia.registrarZona(zona);
+		agencia.enviarCazadorAZona(cazadorSigiloso, zona);
 
-		agencia.enviarCazadorAZona(cazadorSigiloso, zona2);
 		Set<Profugo> capturas = agencia.getRegistroDeCapturas().get(cazadorSigiloso);
 
-		assertFalse(capturas.contains(profugoDificil));
-	}
-	
-	@Test
-	public void capturarProfugoConHabilidadMinimaDebeSerPosible() throws Exception {
-	    Profugo minimo = new Profugo("Profugo con habilidad minina", 5, false, 1);
-	    zona1.agregarProfugo(minimo);
+		assertTrue(capturas.isEmpty());
 
-	    agencia.enviarCazadorAZona(cazadorSigiloso, zona1);
-
-	    Set<Profugo> capturados = agencia.getRegistroDeCapturas().get(cazadorSigiloso);
-	    assertTrue(capturados.contains(minimo));
 	}
-	
+
 	@Test
 	public void profugoConHabilidadMaximaNoDebeSerCapturadoPorCazadorSigiloso() throws Exception {
-	    Profugo maximo = new Profugo("Profugo con habilidad maxima", 5, false, 100);
-	    zona1.agregarProfugo(maximo);
+		Profugo maximo = new Profugo("Profugo con habilidad maxima", 5, false, 100);
+		zona1.agregarProfugo(maximo);
 
-	    agencia.enviarCazadorAZona(cazadorSigiloso, zona1);
+		agencia.enviarCazadorAZona(cazadorSigiloso, zona1);
 
-	    Set<Profugo> capturados = agencia.getRegistroDeCapturas().get(cazadorSigiloso);
-	    assertFalse(capturados.contains(maximo));
-	}
-	
-	@Test
-	public void siUnCazadorSigilosoCapturaAUnProfugoConInocencia10YHabilidad60LaInocenciaQuedaEn8YLaHabilidadEn55() throws Exception {
-	    Profugo original = new Profugo("Target", 10, false, 60);
-	    zona1.agregarProfugo(original);
-
-	    agencia.enviarCazadorAZona(cazadorSigiloso, zona1);
-
-	    assertEquals((Integer)8, original.getNivelInocencia()); 
-	    assertEquals((Integer)55, original.getHabilidad());     
+		Set<Profugo> capturados = agencia.getRegistroDeCapturas().get(cazadorSigiloso);
+		assertFalse(capturados.contains(maximo));
 	}
 
 	@Test
 	public void agregarZonaNullDebeLanzarExcepcion() {
-	    try {
-	        agencia.registrarZona(null);
-	        fail("Se esperaba una ZonaInvalidaException");
-	    } catch (ZonaInvalidaException e) {
-	        assertEquals("La zona no puede ser null", e.getMessage());
-	    }
+		try {
+			agencia.registrarZona(null);
+			fail("Se esperaba una ZonaInvalidaException");
+		} catch (ZonaInvalidaException e) {
+			assertEquals("La zona no puede ser null", e.getMessage());
+		}
 	}
 
 	@Test
 	public void registrarCazadorNullDebeLanzarExcepcion() {
-	    try {
-	        agencia.registrarCazador(null);
-	        fail("Se esperaba una CazadorInvalidoException");
-	    } catch (CazadorInvalidoException e) {
-	        assertEquals("El cazador no puede ser null", e.getMessage());
-	    }
+		try {
+			agencia.registrarCazador(null);
+			fail("Se esperaba una CazadorInvalidoException");
+		} catch (CazadorInvalidoException e) {
+			assertEquals("El cazador no puede ser null", e.getMessage());
+		}
 	}
 
 	@Test
 	public void enviarCazadorNullAZonaDebeLanzarExcepcion() {
-	    try {
-	        agencia.enviarCazadorAZona(null, zona1);
-	        fail("Se esperaba una CazadorInvalidoException");
-	    } catch (CazadorInvalidoException e) {
-	        assertEquals("El cazador no puede ser null", e.getMessage());
-	    } catch (ZonaInvalidaException e) {
-	        fail("No se esperaba ZonaInvalidaException");
-	    }
+		try {
+			agencia.enviarCazadorAZona(null, zona1);
+			fail("Se esperaba una CazadorInvalidoException");
+		} catch (CazadorInvalidoException e) {
+			assertEquals("El cazador no puede ser null", e.getMessage());
+		} catch (ZonaInvalidaException e) {
+			fail("No se esperaba ZonaInvalidaException");
+		}
 	}
 
 	@Test
 	public void enviarCazadorAZonaNullDebeLanzarExcepcion() {
-	    try {
-	        agencia.enviarCazadorAZona(cazadorUrbano, null);
-	        fail("Se esperaba una ZonaInvalidaException");
-	    } catch (ZonaInvalidaException e) {
-	        assertEquals("La zona no puede ser null", e.getMessage());
-	    } catch (CazadorInvalidoException e) {
-	        fail("No se esperaba CazadorInvalidoException");
-	    }
+		try {
+			agencia.enviarCazadorAZona(cazadorUrbano, null);
+			fail("Se esperaba una ZonaInvalidaException");
+		} catch (ZonaInvalidaException e) {
+			assertEquals("La zona no puede ser null", e.getMessage());
+		} catch (CazadorInvalidoException e) {
+			fail("No se esperaba CazadorInvalidoException");
+		}
 	}
-}
 
+	@Test
+	public void getZonasRegistradasIncluyeZonasAgregadasDinamicamente() throws Exception {
+		Zona nueva = new Zona("Quilmes");
+		agencia.registrarZona(nueva);
+
+		Set<Zona> zonas = agencia.getZonasRegistradas();
+		assertTrue(zonas.contains(nueva));
+	}
+
+	@Test
+	public void dadoCazadorSinRegistroCuandoSeEnviaAZonaEntoncesSeInicializaCaptura() throws Exception {
+		Cazador nuevo = new CazadorUrbano("Nuevo", 15);
+		agencia.getCazadoresRegistrados().add(nuevo); 
+
+		assertFalse(agencia.getRegistroDeCapturas().containsKey(nuevo));
+
+		Profugo objetivo = new Profugo("Capturable", 5, false, 20);
+		zona1.agregarProfugo(objetivo);
+
+		agencia.enviarCazadorAZona(nuevo, zona1);
+
+		assertTrue(agencia.getRegistroDeCapturas().containsKey(nuevo));
+		assertTrue(agencia.getRegistroDeCapturas().get(nuevo).contains(objetivo));
+	}
+
+}

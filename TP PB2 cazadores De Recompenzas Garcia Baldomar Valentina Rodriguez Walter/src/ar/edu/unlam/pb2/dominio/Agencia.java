@@ -90,7 +90,7 @@ public class Agencia {
 		}
 
 		Profugo masHabil = null;
-		int habilidadMaxima = -1;
+		Integer habilidadMaxima = -1;
 
 		for (Profugo profugo : capturados) {
 			if (profugo.getHabilidad() > habilidadMaxima) {
@@ -108,10 +108,10 @@ public class Agencia {
 		}
 
 		Cazador cazadorConMasCapturas = null;
-		int maxCapturas = -1;
+		Integer maxCapturas = -1;
 
 		for (Map.Entry<Cazador, Set<Profugo>> entry : registroDeCapturas.entrySet()) {
-			int cantidadCapturas = entry.getValue().size();
+			Integer cantidadCapturas = entry.getValue().size();
 			if (cantidadCapturas > maxCapturas) {
 				maxCapturas = cantidadCapturas;
 				cazadorConMasCapturas = entry.getKey();

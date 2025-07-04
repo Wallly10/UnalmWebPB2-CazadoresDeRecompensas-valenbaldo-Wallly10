@@ -103,17 +103,15 @@ public class CazadorTest {
 	}
 
 	@Test
-	public void cazadorSigilosoReduceHabilidadAlIntimidar()
+	public void cazadorSigilosoReduceHabilidadAlIntimidarA45()
 			throws HabilidadInvalidaException, InocenciaInvalidaException {
 		Profugo profugo = new Profugo("Luis", 10, true, 50);
 		cazadorSigiloso.intimidar(profugo);
 		assertEquals(Integer.valueOf(45), profugo.getHabilidad());
 	}
 
-	
-	
 	@Test
-	public void cazadorRuralCapturaYIntimidaCorrectamente() throws Exception {
+	public void cazadorRuralCapturaYIntimidaCorrectamenteLaXPDelCazadorSubeA72YlaInocenciaA48() throws Exception {
 		Profugo jose = new Profugo("Jose", 5, true, 40);
 		Profugo juan = new Profugo("Juan", 50, true, 40);
 
@@ -152,9 +150,9 @@ public class CazadorTest {
 	@Test
 	public void cazadorUrbanoCon30DeExperienciaTerminaCon94LuegoDeCaptura() throws Exception {
 
-		Profugo capturable1 = new Profugo("Capturable1", 15, false, 70); // Capturable (no nervioso)
-		Profugo capturable2 = new Profugo("Capturable2", 20, false, 50); // Capturable
-		Profugo intimidable = new Profugo("Intimidable", 25, true, 60); // No capturable (es nervioso)
+		Profugo capturable1 = new Profugo("Capturable1", 15, false, 70); 
+		Profugo capturable2 = new Profugo("Capturable2", 20, false, 50); 
+		Profugo intimidable = new Profugo("Intimidable", 25, true, 60);
 
 		zona.agregarProfugo(capturable1);
 		zona.agregarProfugo(capturable2);
@@ -166,16 +164,14 @@ public class CazadorTest {
 		assertFalse(zona.getProfugos().contains(capturable2));
 		assertTrue(zona.getProfugos().contains(intimidable));
 
-		// Experiencia: min(habilidad intimidados) = 60 → +60, capturó 2 → +4 ⇒ 30 + 60
-		// + 4 = 94
 		assertEquals(Integer.valueOf(94), cazadorUrbano.getExperiencia());
 	}
 
 	@Test
 	public void cazadorSigilosoCon30DeExperienciaCapturaDosYIntimidaUnoTerminaCon94LuegoDeCaptura() throws Exception {
-		Profugo capturable1 = new Profugo("Capturable1", 10, true, 40); // <50 habilidad
-		Profugo capturable2 = new Profugo("Capturable2", 5, false, 30); // <50 habilidad
-		Profugo intimidable = new Profugo("Intimidable", 35, true, 60); // habilidad > 50 → no capturable
+		Profugo capturable1 = new Profugo("Capturable1", 10, true, 40);
+		Profugo capturable2 = new Profugo("Capturable2", 5, false, 30); 
+		Profugo intimidable = new Profugo("Intimidable", 35, true, 60); 
 
 		zona.agregarProfugo(capturable1);
 		zona.agregarProfugo(capturable2);
@@ -189,4 +185,5 @@ public class CazadorTest {
 
 		assertEquals(Integer.valueOf(89), cazadorSigiloso.getExperiencia());
 	}
+
 }
